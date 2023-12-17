@@ -25,3 +25,15 @@ npm run start
 
 After following these steps, you will be able to use the WeChat AI bot with Ali
 Tongyi.
+
+If you want to deploy it on a server, you can use pm2 for deployment.
+
+```shell
+npm i pm2 -g
+
+pm2 start index.js
+
+pm2 logs
+```
+
+show qrcode to scan
