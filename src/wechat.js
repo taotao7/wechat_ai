@@ -46,12 +46,23 @@ export async function onMessage(msg) {
       text.includes(process.env.WECHAT_NAME) &&
       dayjs(date).valueOf() - dayjs().valueOf() < 1000 * 60 * 5
     ) {
-      try {
-        const res = await client.sendPrompt(text.match(/@tao(.+)/)[1].trim());
-        await msg.say(res.data?.output?.text);
-      } catch (e) {
-        console.log(e);
-        await msg.say("ai 服务出错");
+      // get content
+      const pattern = new RegExp(`@${process.env.WECHAT_NAME}(.+)`);
+
+      const question = pattern.exec(text)[1].trim();
+
+      if (question) {
+        if (question.includes("change model:")) {
+          client.changeModel(question.split(":")[1]);
+        }
+
+        try {
+          const res = await client.sendPrompt(question);
+          await msg.say(res.data?.output?.text);
+        } catch (e) {
+          console.log(e);
+          await msg.say("ai 服务出错");
+        }
       }
     }
   }

@@ -129,3 +129,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 ding-dong-bot.memory-card.json
+index.js
