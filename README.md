@@ -61,7 +61,7 @@ start
 ```shell
 npm i pm2 -g
 
-pm2 start
+pm2 start ecosystem.config.cjs
 
 pm2 log  # wait qrcode
 ```

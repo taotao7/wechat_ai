@@ -1,6 +1,7 @@
-export default {
+module.exports = {
   apps: [
     {
+      name: "wechat_ai",
       script: "index.js",
     },
   ],
