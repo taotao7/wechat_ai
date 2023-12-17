@@ -2,7 +2,7 @@ import { log } from "wechaty";
 import bot, { onLogin, onLogout, onMessage, onScan } from "./src/wechat.js";
 
 // tongyi api key
-process.env.DASHSCOPE_API_KEY === "";
+process.env.DASHSCOPE_API_KEY === "sk-";
 
 process.env.WECHAT_NAME = "@";
 

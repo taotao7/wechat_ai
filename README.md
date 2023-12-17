@@ -67,3 +67,14 @@ pm2 log  # wait qrcode
 ```
 
 show qrcode to scan
+
+## other
+
+change model
+
+@bot change model: "qwen-turbo", "qwen-plus", "qwen-max", "qwen-max-1201",
+"qwen-max-longcontext"
+
+```shell
+@taotao7 change model: qwen-max-longcontext
+```

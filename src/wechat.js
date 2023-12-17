@@ -3,6 +3,14 @@ import qrcodeTerminal from "qrcode-terminal";
 import client from "./chat.js";
 import dayjs from "dayjs";
 
+const models = [
+  "qwen-turbo",
+  "qwen-plus",
+  "qwen-max",
+  "qwen-max-1201",
+  "qwen-max-longcontext",
+];
+
 export function onScan(qrcode, status) {
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
     const qrcodeImageUrl = [
@@ -46,23 +54,34 @@ export async function onMessage(msg) {
       text.includes(process.env.WECHAT_NAME) &&
       dayjs(date).valueOf() - dayjs().valueOf() < 1000 * 60 * 5
     ) {
+      const pattern = /@[^ ]+\s*(.+)/;
+      const regex = new RegExp(pattern);
       // get content
-      const pattern = new RegExp(`@${process.env.WECHAT_NAME}(.+)`);
+      const question = text.match(regex);
 
-      const question = pattern.exec(text)[1].trim();
+      try {
+        if (question[1]) {
+          if (question[1].includes("change model:")) {
+            // get model
+            const model = question[1].split(":")[1].trim();
+            console.log("change model", model);
 
-      if (question) {
-        if (question.includes("change model:")) {
-          client.changeModel(question.split(":")[1]);
-        }
+            if (models.includes(model)) {
+              client.changeModel(model);
+              msg.say("model change success");
+              return;
+            } else {
+              msg.say("model not exist");
+              return;
+            }
+          }
 
-        try {
-          const res = await client.sendPrompt(question);
+          const res = await client.sendPrompt(question[1]);
           await msg.say(res.data?.output?.text);
-        } catch (e) {
-          console.log(e);
-          await msg.say("ai 服务出错");
         }
+      } catch (e) {
+        console.log(e);
+        await msg.say("ai service error");
       }
     }
   }
