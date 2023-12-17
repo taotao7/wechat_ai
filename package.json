@@ -1,0 +1,27 @@
+{
+  "name": "wechat_ai",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "taotao7",
+  "license": "ISC",
+  "dependencies": {
+    "@taotao7/tongyi-js-sdk": "^1.0.2",
+    "dayjs": "^1.11.10",
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^1.20.2",
+    "wechaty-puppet-wechat": "^1.18.4"
+  },
+  "engines": {
+    "node": ">=16.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "eslint": "^8.56.0"
+  }
+}
